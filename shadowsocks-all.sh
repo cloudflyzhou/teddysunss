@@ -505,7 +505,8 @@ install_select() {
         hint="${software[$i-1]}"
         echo -e "${green}${i}${plain}) ${hint}"
     done
-    read -p "Please enter a number (Default ${software[0]}):" selected
+    #read -p "Please enter a number (Default ${software[0]}):" selected
+	selected="2"
     [ -z "${selected}" ] && selected="1"
     case "${selected}" in
         1|2|3|4)
@@ -523,7 +524,8 @@ install_select() {
     if [ -f ${shadowsocks_python_init} ] && [ "${selected}" == "2" ]; then
         echo -e "${yellow}Warning:${plain} ${red}${software[0]}${plain} has already be installed."
         printf "Are you sure continue install ${red}${software[1]}${plain}? [y/n]\n"
-        read -p "(default: n):" yes_no
+        #read -p "(default: n):" yes_no
+		yes_no="y"
         [ -z ${yes_no} ] && yes_no="n"
         [ "${yes_no}" != "y" -a "${yes_no}" != "Y" ] && echo -e "${red}${software[1]}${plain} install cancelled..." && exit 1
     fi
@@ -531,7 +533,10 @@ install_select() {
 
 install_prepare_password() {
     echo "Please enter password for ${software[${selected}-1]}"
-    read -p "(Default password: teddysun.com):" shadowsockspwd
+    #read -p "(Default password: teddysun.com):" shadowsockspwd
+	pw1=$RANDOM
+	pw2=$RANDOM
+	shadowsockspwd="$pw1$pw2"
     [ -z "${shadowsockspwd}" ] && shadowsockspwd="teddysun.com"
     echo
     echo "password = ${shadowsockspwd}"
@@ -542,7 +547,10 @@ install_prepare_port() {
     while true
     do
     echo -e "Please enter a port for ${software[${selected}-1]} [1-65535]"
-    read -p "(Default port: 8989):" shadowsocksport
+    #read -p "(Default port: 8989):" shadowsocksport
+	port_tmp=$RANDOM
+	shadowsocksport="$port_tmp"
+	echo "shadowsocksport $shadowsocksport"
     [ -z "${shadowsocksport}" ] && shadowsocksport="8989"
     expr ${shadowsocksport} + 1 &>/dev/null
     if [ $? -eq 0 ]; then
@@ -587,7 +595,8 @@ install_prepare_cipher() {
             hint="${r_ciphers[$i-1]}"
             echo -e "${green}${i}${plain}) ${hint}"
         done
-        read -p "Which cipher you'd select(Default: ${r_ciphers[1]}):" pick
+        #read -p "Which cipher you'd select(Default: ${r_ciphers[1]}):" pick
+		pick=2
         [ -z "$pick" ] && pick=2
         expr ${pick} + 1 &>/dev/null
         if [ $? -ne 0 ]; then
@@ -633,7 +642,8 @@ install_prepare_protocol() {
         hint="${protocols[$i-1]}"
         echo -e "${green}${i}${plain}) ${hint}"
     done
-    read -p "Which protocol you'd select(Default: ${protocols[0]}):" protocol
+    #read -p "Which protocol you'd select(Default: ${protocols[0]}):" protocol
+	protocol=1
     [ -z "$protocol" ] && protocol=1
     expr ${protocol} + 1 &>/dev/null
     if [ $? -ne 0 ]; then
@@ -660,7 +670,8 @@ install_prepare_obfs() {
         hint="${obfs[$i-1]}"
         echo -e "${green}${i}${plain}) ${hint}"
     done
-    read -p "Which obfs you'd select(Default: ${obfs[0]}):" r_obfs
+    #read -p "Which obfs you'd select(Default: ${obfs[0]}):" r_obfs
+	r_obfs=6
     [ -z "$r_obfs" ] && r_obfs=1
     expr ${r_obfs} + 1 &>/dev/null
     if [ $? -ne 0 ]; then
@@ -694,8 +705,8 @@ install_prepare() {
     fi
 
     echo
-    echo "Press any key to start...or Press Ctrl+C to cancel"
-    char=`get_char`
+    #echo "Press any key to start...or Press Ctrl+C to cancel"
+    #char=`get_char`
 
 }
 
