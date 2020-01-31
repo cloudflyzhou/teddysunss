@@ -846,7 +846,7 @@ install_prepare(){
 
     echo
     echo "Press any key to start...or Press Ctrl+C to cancel"
-    char=`get_char`
+    #char=`get_char`
 
 }
 
