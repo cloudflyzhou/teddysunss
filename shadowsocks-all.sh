@@ -843,11 +843,6 @@ install_prepare(){
         install_prepare_protocol
         install_prepare_obfs
     fi
-
-    echo
-    echo "Press any key to start...or Press Ctrl+C to cancel"
-    #char=`get_char`
-
 }
 
 install_libsodium(){
