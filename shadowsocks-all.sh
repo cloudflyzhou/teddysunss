@@ -604,7 +604,7 @@ install_select(){
         echo -e "${green}${i}${plain}) ${hint}"
     done
     #read -p "Please enter a number (Default ${software[0]}):" selected
-    select=="2"
+    select="2"
     [ -z "${selected}" ] && selected="1"
     case "${selected}" in
         1|2|3|4)
